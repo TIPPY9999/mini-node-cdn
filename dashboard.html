@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CDN Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f4f4f9;
+      }
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      button {
+        background: #ff4757;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button:hover {
+        background: #ff6b81;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Mini-Node-CDN 控制面板</h1>
+
+    <div class="card">
+      <h2>狀態統計</h2>
+      <p>總快取檔案數：<strong>{{TOTAL_FILES}}</strong> 個</p>
+      <p>命中次數 (HIT)：<strong style="color: green">{{HIT_COUNT}}</strong></p>
+      <p>缺失次數 (MISS)：<strong style="color: red">{{MISS_COUNT}}</strong></p>
+      <button onclick="clearCache()">清除所有快取</button>
+    </div>
+
+    <div class="card">
+      <h2>快取檔案清單</h2>
+      <ul>
+        {{FILE_LIST}}
+      </ul>
+    </div>
+
+    <script>
+      // 點擊按鈕後，發送 POST 請求給 /api/clear
+      async function clearCache() {
+        if (confirm("確定要清除所有快取嗎？")) {
+          try {
+            const res = await fetch("/api/clear", { method: "POST" });
+            if (res.ok) {
+              alert("清除成功！");
+              location.reload(); // 重新整理網頁更新數據
+            } else {
+              alert("清除失敗，伺服器發生錯誤。");
+            }
+          } catch (err) {
+            alert("網路錯誤！");
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

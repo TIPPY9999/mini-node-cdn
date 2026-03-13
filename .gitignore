@@ -1,0 +1,6 @@
+# 忽略快取資料夾裡的檔案
+cache/
+node_modules/
+
+# 忽略作業系統暫存檔
+.DS_Store
