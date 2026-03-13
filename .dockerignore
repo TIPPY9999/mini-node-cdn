@@ -1,0 +1,15 @@
+# 排除本地開發工具設定
+.vscode
+.idea
+
+# 排除版本控制檔案
+.git
+.gitignore
+.dockerignore
+
+# 排除快取資料
+cache/
+
+# 排除相依套件與日誌（目前沒用到但還是先寫上去)
+node_modules
+npm-debug.log
